@@ -26,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
     path('lojas/', include(loja_rota.urls)),
-    path('promocoes/', views.promocoes)
+    path('promocoes/', views.promocoes),
+    path('usuarios/', views.usuario),
 ]

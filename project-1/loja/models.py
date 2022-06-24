@@ -9,7 +9,7 @@ class Categoria(models.Model):
 class SubCategoria(models.Model):
     subcategoria = models.ForeignKey(Categoria, models.CASCADE)
 
-#TODO Arrumar as imagens que estão sendo mandadas para a pasta principal.    
+#FIXME Arrumar as imagens que estão sendo mandadas para a pasta principal.    
 class Loja(models.Model):
     #ForeignKey com o de cima ?
     cnpj = models.CharField(max_length=14)
@@ -25,8 +25,7 @@ class Loja(models.Model):
     def __str__(self) -> str:
         return self.nome_fantasia
 
-#usuario_loja é um método?
-
+#FIXME O horário de publicação está saindo 3 horas na frente.
 class Promocao(models.Model):
     loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=30)
@@ -39,9 +38,11 @@ class Promocao(models.Model):
     def __str__(self) -> str:
         return self.titulo
 
+#FIXME No banco ficou bugado os nomes
 class Usuario(models.Model):
-    loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
+    loja = models.ManyToManyField(Loja, related_name='usuario')
     nome = models.CharField(max_length=100)
     email = models.EmailField()
+    
     def __str__(self) -> str:
         return self.nome
