@@ -32,7 +32,8 @@ def promocoes(request):
         loja_id = int(loja_id)
         loja_promocao = Promocao.objects.filter(loja_id=loja_id)
         if not loja_promocao:
-            return Response({404: "Not Found"})
+            return Response({404: "Not Found"}) #Esse erro está generalizado.
+                                                #Se não tiver loja e se a loja não tiver promoção
         return Response(serializers.PromocaoSerializer(
                                         loja_promocao,
                                         many=True).data
@@ -83,7 +84,7 @@ def usuario(request):
         for user in all_users:
             json_data= {
                 "id": user.id,
-                # "loja": user.loja,    #Essa linha quebrou, como eu esperava.
+                "lojas_cadastradas": [loja.nome_fantasia for loja in user.loja.all()],    #Essa linha quebrou, como eu esperava.
                 "nome": user.nome,
                 "email": user.email
             }
